@@ -1,16 +1,15 @@
 import * as React from 'react';
 
 import { Button, Container, Typography } from '@material-ui/core';
-import { SetResult, store } from '../../../store/resultStore';
 
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { Helmet } from 'react-helmet-async';
 import fileDownload from 'js-file-download';
+import { store } from '../../../store/resultStore';
 
 export function ResultPage() {
   function downloadFile() {
     const finalString = store.getState();
-    const file = new Blob([finalString as BlobPart]);
 
     fileDownload(finalString as BlobPart, 'MergedScript.cs');
   }

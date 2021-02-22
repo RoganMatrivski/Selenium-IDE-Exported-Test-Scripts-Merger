@@ -2,13 +2,6 @@ import Link from '@material-ui/core/Link';
 import React from 'react';
 import ReactMarkdown from 'markdown-to-jsx';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-  listItem: {
-    marginTop: theme.spacing(1),
-  },
-});
 
 const options = {
   overrides: {

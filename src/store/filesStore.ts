@@ -12,7 +12,7 @@ const filesSlice = createSlice({
 
 const store = configureStore({ reducer: filesSlice.reducer });
 
-const { actions, reducer } = filesSlice;
+const { actions } = filesSlice;
 const { SetFiles } = actions;
 
 export { SetFiles, store };

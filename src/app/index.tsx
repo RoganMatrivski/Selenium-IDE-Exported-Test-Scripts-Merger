@@ -13,7 +13,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 import { Helmet } from 'react-helmet-async';
 import { HomePage } from './pages/HomePage/Loadable';
-import { HowToPage } from './pages/HowToPage/Loadable';
+// import { HowToPage } from './pages/HowToPage/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { ResultPage } from './pages/ResultPage/Loadable';
 import { useTranslation } from 'react-i18next';

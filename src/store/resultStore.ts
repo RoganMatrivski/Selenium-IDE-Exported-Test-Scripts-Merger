@@ -12,7 +12,7 @@ const resultSlice = createSlice({
 
 const store = configureStore({ reducer: resultSlice.reducer });
 
-const { actions, reducer } = resultSlice;
+const { actions } = resultSlice;
 const { SetResult } = actions;
 
 export { SetResult, store };
