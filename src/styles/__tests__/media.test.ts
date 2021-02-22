@@ -1,4 +1,5 @@
 import { media, sizes } from '../media';
+
 import { css } from 'styled-components/macro';
 
 describe('media', () => {

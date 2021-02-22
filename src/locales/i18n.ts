@@ -1,9 +1,8 @@
+import LanguageDetector from 'i18next-browser-languagedetector';
+import { convertLanguageJsonToObject } from './translations';
+import en from './en/translation.json';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-
-import en from './en/translation.json';
-import { convertLanguageJsonToObject } from './translations';
 
 export const translationsJson = {
   en: {
