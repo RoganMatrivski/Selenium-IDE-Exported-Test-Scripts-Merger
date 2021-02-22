@@ -7,25 +7,21 @@
 
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
+// Use consistent styling
+import 'sanitize.css/sanitize.css';
+import 'fontsource-roboto';
+// Initialize languages
+import './locales/i18n';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-
-// Use consistent styling
-import 'sanitize.css/sanitize.css';
 
 // Import root app
 import { App } from 'app';
-
 import { HelmetProvider } from 'react-helmet-async';
-
+import { Provider } from 'react-redux';
 import { configureAppStore } from 'store/configureStore';
-
 import reportWebVitals from 'reportWebVitals';
-
-// Initialize languages
-import './locales/i18n';
 
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
