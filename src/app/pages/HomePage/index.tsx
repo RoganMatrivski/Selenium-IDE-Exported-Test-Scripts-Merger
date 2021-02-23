@@ -39,11 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface IDialogProps {
   text?: string;
+  showDialog?: boolean;
 }
 
 function DialogWindow(props: IDialogProps) {
   return (
-    <Dialog open={false} keepMounted>
+    <Dialog open={props.showDialog || false} keepMounted>
       <Container maxWidth="lg" style={{ padding: '1em 32px' }}>
         <Typography variant="h5">
           Please wait while we merge the scripts.
@@ -72,10 +73,20 @@ export function HomePage() {
   const [files, setFiles] = useState<Array<File>>();
   const [suiteName, setSuiteName] = useState('NewSuiteTest');
 
+  const [logs, setLogs] = useState(['Initalizing...'] as Array<string>);
+  const [showDialog, setShowDialog] = useState(false);
+
+  function addLog(log: string) {
+    const updatedLogs = [...logs];
+    updatedLogs.push(log);
+    setLogs(updatedLogs);
+  }
+
   function MergeFiles() {
     console.log(files);
     if (files == null) return; // TODO: Handle on files undefined
 
+    addLog(`Reading all ${files.length} files`);
     const GetTextPromise = [] as Array<Promise<string>>;
     for (const file of files!) {
       GetTextPromise.push(file.text());
@@ -83,10 +94,12 @@ export function HomePage() {
 
     Promise.all(GetTextPromise)
       .then(result => {
+        addLog(`Done reading files`);
         const fileStrings = result;
 
         const functionStrings = [] as Array<string>;
 
+        addLog(`Extracting test functions`);
         for (const fileString of fileStrings) {
           const splittedFileString = fileString.replace(/\r/g, '').split('\n');
 
@@ -94,9 +107,11 @@ export function HomePage() {
           functionStrings.push(functionLines.join('\n'));
         }
 
+        addLog(`Building merged scripts`);
         const finalString = InsertTestFunction(suiteName, ...functionStrings);
         store.dispatch(SetResult(finalString));
 
+        addLog(`Done!`);
         history.push('/result');
       })
       .catch(err => {
@@ -105,27 +120,30 @@ export function HomePage() {
   }
 
   function handleOnClick() {
+    setShowDialog(true);
     MergeFiles();
   }
 
   return (
     <>
-      <DialogWindow />
+      <DialogWindow showDialog={showDialog} text={logs.join('\n')} />
       <Helmet>
-        <title>Home Page</title>
+        <title>Homepage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <TextField
-        label="Test Suite Name"
-        id="standard-start-adornment"
-        className={clsx(classes.margin, classes.textField)}
-        value={suiteName}
-        onChange={event => setSuiteName(event.target.value)}
-      />
-      <DnDFile onChange={files => setFiles(files)} />
-      <Button color="primary" variant="contained" onClick={handleOnClick}>
-        MERGE
-      </Button>
+      <Container maxWidth="md">
+        <TextField
+          label="Test Suite Name"
+          id="standard-start-adornment"
+          className={clsx(classes.margin, classes.textField)}
+          value={suiteName}
+          onChange={event => setSuiteName(event.target.value)}
+        />
+        <DnDFile onChange={files => setFiles(files)} />
+        <Button color="primary" variant="contained" onClick={handleOnClick}>
+          MERGE
+        </Button>
+      </Container>
     </>
   );
 }

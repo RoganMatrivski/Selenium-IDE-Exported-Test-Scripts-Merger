@@ -36,10 +36,10 @@ export function ResultPage() {
         >
           Download
         </Button>
-        <Typography>
+        {/* <Typography>
           What's next? You can merge the script into an existing XUnit test
           project. Click here for more information.
-        </Typography>
+        </Typography> */}
       </Container>
     </>
   );
